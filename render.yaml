@@ -1,0 +1,13 @@
+services:
+  - type: worker
+    name: opening-momentum-scanner
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+    envVars:
+      - key: DISCORD_TOKEN
+        sync: false
+      - key: CHANNEL_ID
+        sync: false
+      - key: FINNHUB_KEY
+        sync: false
