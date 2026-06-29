@@ -6,7 +6,7 @@ import pytz
 from datetime import datetime, time
 
 # ==================== CONFIG - FILL THESE IN ====================
-#DISCORD_TOKEN = "MTUxOTMzNTg3MzYzOTA4ODE2OA.Ggaeyi.9hfnwMG119JjaJenSDqIeQySKQRBqEiQtF9-Po"
+DISCORD_TOKEN = "MTUxOTMzNTg3MzYzOTA4ODE2OA.Ggaeyi.9hfnwMG119JjaJenSDqIeQySKQRBqEiQtF9-Po"
 CHANNEL_ID = 1519335402299986133
 FINNHUB_KEY = "d8tu1v9r01qinhuehgj0d8tu1v9r01qinhuehgjg"
 
