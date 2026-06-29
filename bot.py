@@ -3,12 +3,13 @@ import finnhub
 import yfinance as yf
 import asyncio
 import pytz
+import os
 from datetime import datetime, time
 
 # ==================== CONFIG - FILL THESE IN ====================
-DISCORD_TOKEN = "MTUxOTMzNTg3MzYzOTA4ODE2OA.Ggaeyi.9hfnwMG119JjaJenSDqIeQySKQRBqEiQtF9-Po"
-CHANNEL_ID = 1519335402299986133
-FINNHUB_KEY = "d8tu1v9r01qinhuehgj0d8tu1v9r01qinhuehgjg"
+DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
+CHANNEL_ID = int(os.getenv("CHANNEL_ID"))  # Replace with your Discord channel ID
+FINNHUB_KEY = os.getenv("FINNHUB_KEY")
 
 SCAN_START = time(9, 30)
 SCAN_END = time(9, 40)
