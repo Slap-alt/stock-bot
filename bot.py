@@ -4,12 +4,14 @@ import finnhub
 import yfinance as yf
 import asyncio
 import pytz
+import os
 from datetime import datetime, time
 
 # ==================== CONFIG - FILL THESE IN ====================
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 CHANNEL_ID = int(os.getenv("CHANNEL_ID"))
 FINNHUB_KEY = os.getenv("FINNHUB_KEY")
+
 
 SCAN_START = time(9, 30)
 SCAN_END = time(9, 40)
