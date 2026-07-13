@@ -1,4 +1,5 @@
 import discord
+import os
 import finnhub
 import yfinance as yf
 import asyncio
@@ -6,9 +7,9 @@ import pytz
 from datetime import datetime, time
 
 # ==================== CONFIG - FILL THESE IN ====================
-DISCORD_TOKEN = "MTUxOTMzNTg3MzYzOTA4ODE2OA.Ggaeyi.9hfnwMG119JjaJenSDqIeQySKQRBqEiQtF9-Po"
-CHANNEL_ID = 1519335402299986133
-FINNHUB_KEY = "d8tu1v9r01qinhuehgj0d8tu1v9r01qinhuehgjg"
+DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
+CHANNEL_ID = int(os.getenv("CHANNEL_ID"))
+FINNHUB_KEY = os.getenv("FINNHUB_KEY")
 
 SCAN_START = time(9, 30)
 SCAN_END = time(9, 40)
@@ -30,9 +31,11 @@ leaderboard_msg_id = None
 alerted = set()
 detailed_count = 0
 
+
+
 def is_in_window():
-    now = datetime.now(tz).time()
-    return SCAN_START <= now <= SCAN_END
+       now = datetime.now(tz).time()
+       return SCAN_START <= now <= SCAN_END
 
 def get_momentum_score(pct_change, rel_volume, above_open, above_vwap):
     score = 5.0
