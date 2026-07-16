@@ -164,7 +164,7 @@ async def on_ready():
     while True:
         if is_in_window():
             candidates = []
-            for t in ["DXST", "ATAI", "JTAI", "ATPC", "SMCI", "PLTR", "SOFI", "LCID", "F", "INTC"]:
+            for t in ["DXST", "ATAI", "JTAI", "ATPC", "VRAX", "PLTR", "SOFI", "LCID", "F", "INTC"]:
                 data = await get_stock_data(t)
                 if (data and 
                     data['pct_from_prev'] > 1.5 and 
