@@ -69,6 +69,25 @@ async def get_stock_data(ticker):
             return None
 
         today = stock.history(period="1d", interval="1m")
+        hist = stock.history(period="3mo")
+        if len(hist) < 20:
+            return None
+        
+        # Calculate EMAs
+        hist['EMA9'] = hist['Close'].ewm(span=9, adjust=False).mean()
+        hist['EMA20'] = hist['Close'].ewm(span=20, adjust=False).mean()
+
+        fast_ma = hist['EMA9'].iloc[-1]
+        slow_ma = hist['EMA20'].iloc[-1]
+        above_ma_crossover = fast_ma > slow_ma
+
+        # Calculate RSI (14)
+        delta = hist['Close'].diff()
+        gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
+        loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
+        rs = gain / loss
+        rsi = 100 - (100 / (1 + rs))
+        current_rsi = rsi.iloc[-1]
         if today.empty:
             return None
 
@@ -90,7 +109,9 @@ async def get_stock_data(ticker):
             'volume': volume,
             'score': score,
             'above_open': above_open,
-            'above_vwap': above_vwap
+            'above_vwap': above_vwap,
+            'rsi': round(current_rsi, 1),
+            'above_ma_crossover': above_ma_crossover
         }
     except:
         return None
@@ -141,7 +162,11 @@ async def on_ready():
             candidates = []
             for t in ["AAPL", "TSLA", "NVDA", "AMD", "SMCI", "PLTR", "SOFI", "LCID", "F", "INTC"]:
                 data = await get_stock_data(t)
-                if data and data['pct_from_prev'] > 1.8:
+                if (data and 
+                    data['pct_from_prev'] > 1.5 and 
+                    data.get('above_open', False) and
+                    data.get('rsi', 100) < 40 and           # RSI requirement
+                    data.get('above_ma_crossover', False)): # Fast MA > Slow MA
                     candidates.append(data)
 
             candidates.sort(key=lambda x: x['score'], reverse=True)
