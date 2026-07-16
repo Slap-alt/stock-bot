@@ -14,7 +14,7 @@ FINNHUB_KEY = os.getenv("FINNHUB_KEY")
 
 
 SCAN_START = time(9, 30)
-SCAN_END = time(12, 0)
+SCAN_END = time(10, 30)
 
 MIN_PRICE = 6.0
 MIN_MARKET_CAP = 150_000_000
