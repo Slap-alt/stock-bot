@@ -14,7 +14,7 @@ FINNHUB_KEY = os.getenv("FINNHUB_KEY")
 
 
 SCAN_START = time(9, 30)
-SCAN_END = time(9, 40)
+SCAN_END = time(12, 0)
 
 MIN_PRICE = 6.0
 MIN_MARKET_CAP = 150_000_000
@@ -164,7 +164,7 @@ async def on_ready():
     while True:
         if is_in_window():
             candidates = []
-            for t in ["AAPL", "TSLA", "NVDA", "AMD", "SMCI", "PLTR", "SOFI", "LCID", "F", "INTC"]:
+            for t in ["DXST", "ATAI", "JTAI", "ATPC", "SMCI", "PLTR", "SOFI", "LCID", "F", "INTC"]:
                 data = await get_stock_data(t)
                 if (data and 
                     data['pct_from_prev'] > 1.5 and 
